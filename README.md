@@ -14,3 +14,8 @@
 1. dotnet ef migrations add InitialCreate
 2. dotnet ef database update
 ```
+
+# Run the project
+```
+1. dotnet run
+```
