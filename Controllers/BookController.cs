@@ -30,7 +30,7 @@ namespace BookApi.Controllers
             return await _context.Books.ToListAsync();
         }
 
-        [HttpGet("id")]
+        [HttpGet("id={id}")]
         public async Task<IActionResult> Get(int id)
         {
             var book = await _context.Books.FindAsync(id);
@@ -45,7 +45,7 @@ namespace BookApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("id={id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var book = await _context.Books.FindAsync(id);
