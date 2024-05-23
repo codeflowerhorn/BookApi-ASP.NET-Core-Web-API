@@ -11,7 +11,17 @@ builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.Pr
 //builder.Services.AddDbContext<BookDbContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 //builder.Services.AddDbContext<BookDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddDbContext<BookDbContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
-
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy(name: "_myAllowSpecificOrigins",
+                        b =>
+                        {
+                            b.WithOrigins("http://localhost:5100")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                        });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("_myAllowSpecificOrigins");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
